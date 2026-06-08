@@ -34,7 +34,6 @@ public class AvancandoArrays {
     Arrays.sort(matriz, Comparator.comparingInt(a -> a[0]));
 
     for( int[] linha : matriz){
-
       System.out.println(Arrays.toString(linha));
     }
 
