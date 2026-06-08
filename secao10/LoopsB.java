@@ -23,7 +23,7 @@ public class LoopsB {
             for(int j = 0; j < 5; j++){
                 if(j == 4){
                     System.out.println("Parou interno");
-                    break;
+                    break interno;
                 }
                 System.out.println("i " + i + ", j " + j);
             }

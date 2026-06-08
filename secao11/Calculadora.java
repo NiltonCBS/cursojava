@@ -52,5 +52,7 @@ public class Calculadora {
                 break;
         }
         } while (op != 0);
+
+        ler.close();
     }
 }
