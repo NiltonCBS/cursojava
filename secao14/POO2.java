@@ -38,7 +38,14 @@ public class POO2 {
     
     String[] alunos = {"Aluno 1", "Aluno 2"};
     novaTurma.setAlunos(alunos);
-    
+
     System.out.println(Arrays.toString(novaTurma.getAlunos()));
+
+    //4 - role play
+    ProdutoRolePlay rolePlay = new ProdutoRolePlay();
+    rolePlay.setNome("celular");
+    rolePlay.setPreco(2000);
+    rolePlay.setQuantidade(100);
+    System.out.println(rolePlay.valorTotalEmEstoque());
   }
 }
