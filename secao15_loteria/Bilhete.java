@@ -18,8 +18,7 @@ public class Bilhete {
     resultadoSorteio = new int[6];
 
     for(int i = 0; i < resultadoSorteio.length; i++){
-      //resultadoSorteio[i] = random.nextInt(60) + 1;
-      resultadoSorteio[i] = i;
+      resultadoSorteio[i] = random.nextInt(60) + 1;
     }
 
     Arrays.sort(resultadoSorteio);
