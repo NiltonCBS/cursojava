@@ -23,7 +23,43 @@ public class Exercicios {
     cachorro.exibirDetalhes();
 
     //Exercicio 4: Classe Abstrata e Interface
+    FuncionarioTempoIntegral fun1 = new FuncionarioTempoIntegral("Nilton", 36, 200);
+    FuncionarioMeioPeriodo fun2 = new FuncionarioMeioPeriodo("João", 15, 100);
     
+    
+    System.out.println("Salario Nilton: " + fun1.calcularSalario());
+    System.out.println("Salario João: " + fun2.calcularSalario());
+    fun1.adicionarBeneficio("Plano de saude");
+    fun2.adicionarBeneficio("VA");
+
+    //Exercicio 5: Implementação de Múltiplas Interfaces e Polimorfismo
+    Pilotavel meuHidroAviao = new Hidroaviao();
+    Navegavel meuBarco = new Barco();
+    Pilotavel meuAviao = new Aviao();
+
+
+    meuAviao.pilotar();
+
+    meuHidroAviao.pilotar();
+
+    meuBarco.navegar();
+
+    operarVeiculo(meuAviao);
+    // operarVeiculo(meuHidroAviao);
+    operarVeiculo(meuBarco);
+
   }
+
+  public static void operarVeiculo(Object veiculo) {
+
+        if(veiculo instanceof Pilotavel) {
+            System.out.println("Este veículo é pilotável");
+        }
+
+        if(veiculo instanceof Navegavel) {
+            System.out.println("Este veículo é navegável");
+        }
+
+    }
   
 }
