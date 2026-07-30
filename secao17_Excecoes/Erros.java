@@ -251,12 +251,12 @@ public class Erros {
 
   public static void procesarArquivo(String caminho) throws FileNotFoundException, IOException {
 
-    if (caminho == null || caminho.isEmpty()) {
+    if (caminho == null || caminho.isBlank()) {
 
       throw new IOException("Caminho inválido");
 
     }
-
+    
     File arquivo = new File(caminho);
 
     if (!arquivo.exists()) {

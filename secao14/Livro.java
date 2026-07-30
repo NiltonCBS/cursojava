@@ -7,7 +7,7 @@ public class Livro {
   private double preco;
 
   //para preencher os dados preciso ter um setter para cada propriedade
-  //com o construtor serve para auxiliar, as veze terá um setter que nem vai utilizar muito
+  //com o construtor serve para auxiliar, as vezes terá um setter que nem vai utilizar muito
   //constructors são métodos especiais usados para inicializar objetos;
   //eles são chamados automaticamente quando um novo objeto é criado
   //Construtores não tem um tipo de retorno

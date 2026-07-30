@@ -1,13 +1,23 @@
 package secao18;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import javax.imageio.ImageIO;
 
 public class Arquivo {
   public static void main(String[] args) {
@@ -79,6 +89,8 @@ public class Arquivo {
     }
 
     //3 - Serialização de Objetos
+    //arquivos serializados tem a extensão .ser
+    //SERIALIZAR = OUTPUT
     Pessoa pessoa =new Pessoa("Nilton", 12);
 
     System.out.println(pessoa.getNome());
@@ -93,16 +105,106 @@ public class Arquivo {
       System.out.println("Erro ao serializar objeto: " + e.getMessage());
     }
     
-    // deserialização
+    // deserialização = INPUT
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(currentDir + "pessoa.ser"))) {
       
       Pessoa pessoa2 = (Pessoa) ois.readObject();
-      System.out.println();
+
+      System.out.println("Nome: " + pessoa2.getNome());
+      System.out.println("Idade: " + pessoa2.getIdade());
 
     } catch (Exception e) {
       
       System.out.println("Erro ao deserializar objeto: " + e.getMessage());
   
     }
+
+    // 4 - manipulação de binários
+
+    try (
+      FileInputStream fis = new FileInputStream(currentDir + "imagem.jpg");
+      FileOutputStream fos = new FileOutputStream(currentDir + "copia_imagem.jpg");
+    ) {
+
+      int byteData;
+
+      while ((byteData = fis.read()) != -1) {
+        fos.write(byteData);
+      }
+
+      System.out.println("Arquivo copiado com sucesso.");
+    } catch (Exception e) {
+       System.out.println("Erro ao copiar arquivo: " + e.getMessage());
+    }
+
+
+    try (
+      BufferedInputStream bis = new BufferedInputStream(new FileInputStream(currentDir + "video.mkv"));
+      BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(currentDir + "video_copia.mkv"));
+  ) {
+
+      byte[] buffer = new byte[1024];
+
+      int bytesLidos;
+
+      while ((bytesLidos = bis.read(buffer)) != -1) {
+        bos.write(buffer, 0, bytesLidos);
+      }
+
+      System.out.println("Vídeo copiado com sucesso");
+      
+    } catch (Exception e) {
+      System.out.println("Erro ao copiar vídeo: " + e.getMessage());
+    }
+
+
+    // 5 - Manipulação de imagem
+    //Imagem.jpg e colocar um texto no centro
+    try {
+      
+      BufferedImage imagem = ImageIO.read(new File(currentDir + "imagem.jpg"));
+
+      if (imagem == null) {
+        System.out.println("A imagem não pode ser carregada.");
+        return;
+      }
+      Graphics2D g2d = imagem.createGraphics();
+      
+      
+      //Preparando o Texto
+      g2d.setFont(new Font("Arial", Font.BOLD, 50));
+      FontMetrics fm = g2d.getFontMetrics();
+      String texto = "Texto no Centro";
+      
+      //Centralizar o texto na imagem
+      int larguraTexto = fm.stringWidth(texto);
+      int alturaTexto = fm.getHeight();
+
+      //Posicionamento
+      int x = (imagem.getWidth() - larguraTexto) / 2;
+      int y = (imagem.getHeight() - alturaTexto) / 2 + fm.getAscent();
+    
+      //Desenhar retangulo
+      g2d.setColor(Color.BLACK);
+      g2d.fillRect(x - 10, y - fm.getAscent(), larguraTexto + 20, alturaTexto);
+
+      //Desenhar o texto em cima do retangulo
+      g2d.setColor(Color.RED);
+      g2d.drawString(texto, x, y);
+
+      //liberação de recursos
+      g2d.dispose();
+
+      File outpuFile = new File(currentDir + "imagem_com_texto.png");
+
+      ImageIO.write(imagem, "png", outpuFile);
+
+      System.out.println("Gerar o texto na imagem com sucesso.");
+
+      
+    } catch (Exception e) {
+      System.out.println("Erro ao processar imagem: " + e.getMessage());
+    }
+
   }
 }
